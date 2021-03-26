@@ -1,0 +1,16 @@
+<div class="jumbotron text-center">
+  <h1>Angular Text Editor with Limit Validation</h1>
+ 
+</div>
+<div class="container">
+    <form [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)">
+  <div  style="width: 400px; margin: 0 auto;" class="form-group">
+        <label for="email">Description:</label>
+        <angular-editor [placeholder]="'Enter text here...'" formControlName="description"></angular-editor>
+        <div *ngIf="formdata.controls.description.errors && formdata.controls.description.touched" class="error">description is required(Max 400 - Min 5).</div>
+      </div>
+    
+      <button type="submit"  class="btn btn-primary">Register</button>
+    </form>
+</div>
+<router-outlet></router-outlet>
