@@ -8,16 +8,28 @@ import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 export class AppComponent implements OnInit {
   
   title = 'EBookMakerWeb';
-
+  titles:String[]=[];
+  number:number;
   formdata;
   constructor(private formBuilder: FormBuilder) { }
 
   onClickSubmit(data) {
-      
-      console.log(this.formdata.get('description').value); 
-      this.formdata.get('description').setValue("<h1>ff</h1>")
-          //  this.formdata.get('description').markAsTouched();
-    
+     
+     
+  }
+
+  addTitle()
+  {
+    this.titles[this.number]="<h1 id="+this.number+">Titles</h1>";
+    this.formdata.get('description').setValue(this.formdata.get('description').value+this.titles[this.number]);
+    this.number++;
+  }
+
+  addSubTitle()
+  {
+    this.titles[this.number]="<h3 id="+this.number+">Titles</h3>";
+    this.formdata.get('description').setValue(this.formdata.get('description').value+this.titles[this.number]);
+    this.number++;
   }
 
   ngOnInit(): void {
@@ -25,5 +37,6 @@ export class AppComponent implements OnInit {
               description: ['', [Validators.required,
                 Validators.maxLength(400), Validators.minLength(5)]]
           });
+      this.number=0;    
     }
 }
