@@ -1,12 +1,13 @@
 const mongoose = require("mongoose")
+const jwt = require('jsonwebtoken');
+const secret = require('../config').secret;
+const Schema = mongoose.Schema;
 
-var Schema = mongoose.Schema;
-
-var userSchema = new Schema({
+const userSchema = new Schema({
     username:
      {
         type:String,
-        ruquired:true,
+        require:true,
         unique :true
     },
 
@@ -15,6 +16,16 @@ var userSchema = new Schema({
         type:String,
         ruquired:true,
         unique :true
+    },
+    password:
+    {
+        type:String,
+        require:true
+    },
+    passcontent:
+    {
+        type:String,
+        require:true
     }
 });
 
@@ -33,5 +44,19 @@ userSchema.post('save', (error, doc, next) => {
       next();
     }
   });
+
+
+userSchema.methods.generateJWT = ()=> {
+    var today = new Date();
+    var exp = new Date(today);
+    exp.setDate(today.getDate() + 60);
+  
+    return jwt.sign({
+      id: this._id,
+      username: this.username,
+      exp: parseInt(exp.getTime() / 1000),
+    }, secret);
+  };
+  
 
 module.exports = mongoose.model("user", userSchema);
