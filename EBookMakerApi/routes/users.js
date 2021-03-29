@@ -31,16 +31,16 @@ router.post('/signin',(req,res,next)=>{
          if(hash.toString()===password)
          {
             const token = user.generateJWT();
-            return res.json({token:token});
+            return res.status(200).json({username:user.username,email:user.email,token:token});
          }
          else
-            return res.json({message:"Email or password wrong."});
+            return res.status(401).json({message:"Email or password wrong."});
       })
     }
     else
-      return res.json({message:"Email or password wrong."});
+      return res.status(401).json({message:"Email or password wrong."});
   }).catch((err)=>{
-    res.json({user:null,error:err.message});
+    res.status(404).json({message:"Something went wrong.",error:err.message});
   });
 });
 
