@@ -13,7 +13,7 @@ router.post('/addnewuser', async (req,res,next) =>{
     const promise = user.save();
   
     promise.then((data)=>{
-      res.json(data);
+      res.json({status:true,id:data._id,username:data.username,email:data.email});
     }).catch((err)=>{
       res.json({data:null,error:err.message});
     });
@@ -24,23 +24,25 @@ router.post('/signin',(req,res,next)=>{
   const {email,password} = new User(req.body);
   const promise = User.findOne({email:email});
 
-  promise.then((user)=>{   
+  promise.then((user)=>{  
     if(user)
     {
       decrypt({iv:user.password,content:user.passcontent}).then((hash )=>{
+        console.log(hash.toString()+password); 
          if(hash.toString()===password)
          {
+           
             const token = user.generateJWT();
-            return res.status(200).json({username:user.username,email:user.email,token:token});
+            return res.status(200).json({status:true,username:user.username,email:user.email,token:token});
          }
          else
-            return res.status(401).json({message:"Email or password wrong."});
+            return res.json({status:false,message:"Email or password wrong."});
       })
     }
     else
-      return res.status(401).json({message:"Email or password wrong."});
+      return res.json({status:false,message:"Email or password wrong."});
   }).catch((err)=>{
-    res.status(404).json({message:"Something went wrong.",error:err.message});
+    res.status(500).json({message:"Something went wrong.",error:err.message});
   });
 });
 

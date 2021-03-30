@@ -14,6 +14,7 @@ export class UserService {
   public currentUser: Observable<User>;
   apiUrl: string = 'http://localhost:3000';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
+  
   constructor(private httpClient:HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUserVal')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -32,9 +33,16 @@ export class UserService {
     let API_URl=this.apiUrl+"/users/signin";
  
     return this.httpClient.post<any>(API_URl,{email,password}).pipe(map(user =>{
-      localStorage.setItem('currentUserVal', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-      return user;
+      if(user.status)
+      {
+        localStorage.setItem('currentUserVal', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        return user;
+      }
+      else
+      {
+       return user;
+      }
     }));
   }
 
@@ -50,7 +58,7 @@ export class UserService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else {
-      errorMessage =  error.error.message;
+      errorMessage =  error.message;
     }
     return throwError(errorMessage);
   }

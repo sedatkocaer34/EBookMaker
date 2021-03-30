@@ -1,0 +1,35 @@
+
+  
+<div class="row" id="body-row">
+    <!-- Sidebar -->
+     <div id="sidebar-container" class="sidebar-expanded d-none d-md-block col-2">
+      
+        <ul class="list-group sticky-top sticky-offset">
+           
+            <a [routerLink]="" (click)="addTitle()" class="bg-dark list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="menu-collapsed">Add New Title</span>
+                </div>
+            </a>
+            <a [routerLink]="" (click)="addSubTitle()" class="bg-dark list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="menu-collapsed">Add New SubTitle</span>
+                </div>
+            </a>
+        </ul>
+    </div> -->
+    <div class="col py-3">
+      <hr>
+      <div style="margin-top: 50px;" class="form-group">
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
+      </div>
+      <form  style="margin-top: 30px;width: 100%; " [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)">
+          <angular-editor style="height: 100%;" [placeholder]="'Enter text here...'" formControlName="description"></angular-editor>
+      </form>
+      <div style="margin-top: 30px;" class="form-group">
+        <button type="button" class="btn btn-outline-danger">Remove</button>
+        <button  type="button" class="btn btn-outline-success">Success</button>
+      </div>
+    </div> 
+  </div>
+
