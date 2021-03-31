@@ -15,6 +15,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { BookComponent } from './components/book/book.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { UpdatebookComponent } from './components/updatebook/updatebook.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     NavComponent,
     HomeComponent,
     BookComponent,
-    ProfileComponent
+    ProfileComponent,
+    UpdatebookComponent
   ],
   imports: [
     BrowserModule,

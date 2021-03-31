@@ -33,7 +33,7 @@ router.post('/signin',(req,res,next)=>{
          {
            
             const token = user.generateJWT();
-            return res.status(200).json({status:true,username:user.username,email:user.email,token:token});
+            return res.status(200).json({status:true, id:user._id,username:user.username,email:user.email,token:token});
          }
          else
             return res.json({status:false,message:"Email or password wrong."});
@@ -52,7 +52,8 @@ router.get('/getUser/:userId',(req,res,next) =>{
   const promise = User.findById(mongoose.Types.ObjectId(userId));
 
   promise.then((user)=>{
-    res.json(user);
+    const pass = "********";
+    res.json({username:user.username,email:user.email,password:pass});
   }).catch((err)=>{
     res.json({user:null,error:err.message});
   });

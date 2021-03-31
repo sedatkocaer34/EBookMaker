@@ -29,9 +29,15 @@ export class UserService {
       return this.httpClient.post(API_URl,data).pipe(catchError(this.error))
   }
 
+  getUser(id:string):Observable<any>{
+    let API_URl=this.apiUrl+"/users/getUser/"+id;
+    return this.httpClient.get(API_URl).pipe(map(user =>{
+      return user;
+    }));
+  }
+
   login( email:string, password:string):Observable<any>{
     let API_URl=this.apiUrl+"/users/signin";
- 
     return this.httpClient.post<any>(API_URl,{email,password}).pipe(map(user =>{
       if(user.status)
       {
@@ -47,12 +53,10 @@ export class UserService {
   }
 
   logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('currentUserVal');
     this.currentUserSubject.next(null);
   }
 
-   // Handle Errors 
    error(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
