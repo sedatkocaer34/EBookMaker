@@ -19,17 +19,16 @@
         </ul>
     </div> -->
     <div class="col py-3">
-      <hr>
-      <div style="margin-top: 50px;" class="form-group">
+      <form  style="margin-top: 60px;width: 100%; " [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)">
+      <div  style="width: 50%;" class="form-group">
+        <h4>Title <span class="label label-default"></span></h4>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
       </div>
-      <form  style="margin-top: 30px;width: 100%; " [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)">
-          <angular-editor style="height: 100%;" [placeholder]="'Enter text here...'" formControlName="description"></angular-editor>
-      </form>
-      <div style="margin-top: 30px;" class="form-group">
+        <h4>Content <span class="label label-default"></span></h4>
+        <angular-editor style="height: 100%;" [placeholder]="'Enter text here...'" formControlName="description"></angular-editor>
         <button type="button" class="btn btn-outline-danger">Remove</button>
         <button  type="button" class="btn btn-outline-success">Success</button>
-      </div>
+      </form>
     </div> 
   </div>
 
