@@ -6,12 +6,14 @@ import { AppComponent } from '../app/app.component';
 import { BookComponent } from '../app/components/book/book.component';
 import { ProfileComponent } from '../app/components/profile/profile.component';
 import { UpdatebookComponent } from './components/updatebook/updatebook.component';
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
 const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'home', component: HomeComponent },
   { path: 'book', component: BookComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'updatebook/:bookId', component: UpdatebookComponent },
+  { path: 'bookdetail/:bookId', component: BookDetailComponent },
   { path: '', component: HomeComponent },
 ];
 

@@ -14,7 +14,7 @@ export class UpdatebookComponent implements OnInit {
   titles:String[]=[];
   number:number;
   formBook;
-  constructor(private formbuilder:FormBuilder,private bookService:BookService, private route: ActivatedRoute,) { }
+  constructor(private formbuilder:FormBuilder,private bookService:BookService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
