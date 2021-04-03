@@ -1,5 +1,5 @@
-
 <div class="row" id="body-row">
+  
      <div id="sidebar-container" class="sidebar-expanded d-none d-md-block col-2">
         <ul class="list-group sticky-top sticky-offset">
             <a [routerLink]="" (click)="addTitle()" class="bg-dark list-group-item list-group-item-action">
@@ -23,7 +23,11 @@
         <h4>Content <span class="label label-default"></span></h4>
           <angular-editor style="height: 100%;" [placeholder]="'Enter text here...'"  [(ngModel)]="book.description"  formControlName="description"></angular-editor>
       <div style="margin-top: 30px;" class="form-group">
-        <button  type="submit" class="btn btn-outline-success">Update</button>
+        <button type="submit" class="btn btn-primary" >
+          <span *ngIf="loading" class="spinner-border spinner-border-sm">
+          </span>
+          Update
+        </button>
       </div>
     </form>
     </div> 

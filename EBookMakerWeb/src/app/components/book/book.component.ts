@@ -14,6 +14,7 @@ export class BookComponent implements OnInit {
   number:number;
   formdata;
   book:Book;
+  loading:boolean=false;
   constructor(private router:Router,private formBuilder: FormBuilder, private bookService:BookService) { }
 
   addTitle()
@@ -42,7 +43,9 @@ export class BookComponent implements OnInit {
 
     addBook()
     {
+      this.loading=true;
       if (this.formdata.invalid) {
+        this.loading=false;
         return;
       }
       const val = this.formdata.value;
@@ -50,7 +53,12 @@ export class BookComponent implements OnInit {
       this.bookService.createBook(this.book).subscribe(data =>{
           if(data.status)
           {
+            this.loading=false;
             this.router.navigate(['/home']);
+          }
+          else
+          {
+            this.loading=false;
           }
       });
     }
