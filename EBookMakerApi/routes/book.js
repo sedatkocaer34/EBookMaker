@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Book = require('../models/Book');
 const mongoose =require('mongoose');
+const { json } = require('express');
 
 router.post('/addnewbook',(req,res,next)=>{
     const book = new Book(req.body);
@@ -21,6 +22,22 @@ router.get('/getbook/:bookId',(req,res,next)=>{
       res.json({success:true,book:book});
     }).catch((err)=>{
       res.json({success:false,error:err.message});
+    });
+});
+
+router.put('/updatebook/:bookId',(req,res,next)=>{
+    const bookId = req.params.bookId;
+    const bookData = JSON.parse(JSON.stringify(req.body));
+
+    const promise = Book.findByIdAndUpdate(bookId,bookData,{new:true});
+    promise.then((result) => {
+        if(!result)
+        {
+            res.json({status:false,message:"Book Not Found"});
+        }
+        res.json({status:true,result});
+    }).catch((err) => {
+        res.json(err);
     });
 });
 

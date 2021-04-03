@@ -21,6 +21,13 @@ export class BookService {
     return this.httpClient.post(API_URl,data).pipe(catchError(this.error))
   }
 
+  updateBook(bookId:string,data:Book):Observable<any>{
+    let API_URl=this.apiUrl+"/book/updatebook/"+bookId;
+    return this.httpClient.put(API_URl,data).pipe(map(book=>{
+        return book;
+    }));
+  }
+
   getBookById(bookId:String):Observable<any>{
     let API_URl=this.apiUrl+"/book/getbook/"+bookId;
     return this.httpClient.get(API_URl).pipe(map(book =>{

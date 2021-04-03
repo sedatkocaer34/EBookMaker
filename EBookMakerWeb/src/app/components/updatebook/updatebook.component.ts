@@ -15,12 +15,12 @@ export class UpdatebookComponent implements OnInit {
   number:number;
   formBook;
   constructor(private formbuilder:FormBuilder,private bookService:BookService, private route: ActivatedRoute) { }
-
+   bookIdFromRoute:string;
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
-    const bookIdFromRoute = String(routeParams.get('bookId'));
+    this.bookIdFromRoute = String(routeParams.get('bookId'));
     this.book=new Book({});
-    this.getBook(bookIdFromRoute);
+    this.getBook(this.bookIdFromRoute);
     this.createBookForm();
   }
 
@@ -45,9 +45,23 @@ export class UpdatebookComponent implements OnInit {
     this.formBook.get('description').setValue(this.formBook.get('description').value+this.titles[this.number]);
     this.number++;
   }
-  onClickSubmit()
+  updateBook()
   {
+    if (this.formBook.invalid) {
+      return;
+    }
 
+    const val = this.formBook.value;
+    const book = new Book({title:val.title,description:val.description,userId:JSON.parse(localStorage.getItem('currentUserVal')).id})
+    this.bookService.updateBook( this.bookIdFromRoute,book).subscribe(data =>{
+        if (data.success) {
+          
+        }
+        else
+        {
+          //handler error
+        }
+    });
   }
 
   createBookForm()
