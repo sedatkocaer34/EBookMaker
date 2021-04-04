@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 const mongoose =require('mongoose');
 const { encrypt, decrypt } = require('../security/crpyto');
+const auth = require('../security/jwtAuth');
 
 router.post('/addnewuser', async (req,res,next) =>{
   const user = new User(req.body);
@@ -46,7 +47,7 @@ router.post('/signin',(req,res,next)=>{
   });
 });
 
-router.get('/getUser/:userId',(req,res,next) =>{
+router.get('/getUser/:userId',auth.required,(req,res,next) =>{
   const userId= req.params.userId;
   console.log(userId);
   const promise = User.findById(mongoose.Types.ObjectId(userId));
@@ -59,7 +60,7 @@ router.get('/getUser/:userId',(req,res,next) =>{
   });
 });
 
-router.put('/updateUser/:userId',(req,res,next) =>{
+router.put('/updateUser/:userId',auth.required,(req,res,next) =>{
   const userId= req.params.userId;
   const userUpdate = JSON.parse(JSON.stringify(req.body));
   console.log(userUpdate);

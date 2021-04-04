@@ -16,20 +16,20 @@
     </div> 
     <div class="col py-3">
       <form  style="margin-top: 50px;width: 100%; " [formGroup] = "formBook" (ngSubmit) = "updateBook()">
-      <div style="width: 50%;" class="form-group">
-        <h4>Title <span class="label label-default"></span></h4>
-        <input type="title" class="form-control"  [(ngModel)]="book.title"  formControlName="title" placeholder="Enter Title">
-      </div>
+        <div style="width: 50%;" class="form-group">
+          <h4>Title <span class="label label-default"></span></h4>
+          <input type="title" class="form-control"  [(ngModel)]="book.title"  formControlName="title" placeholder="Enter Title">
+        </div>
         <h4>Content <span class="label label-default"></span></h4>
-          <angular-editor style="height: 100%;" [placeholder]="'Enter text here...'"  [(ngModel)]="book.description"  formControlName="description"></angular-editor>
-      <div style="margin-top: 30px;" class="form-group">
-        <button type="submit" class="btn btn-primary" >
-          <span *ngIf="loading" class="spinner-border spinner-border-sm">
-          </span>
-          Update
-        </button>
-      </div>
-    </form>
+        <angular-editor style="height: 100%;" [placeholder]="'Enter text here...'"  [(ngModel)]="book.description"  formControlName="description"></angular-editor>
+        <div style="margin-top: 30px;" class="form-group">
+          <button type="submit" class="btn btn-primary" >
+            <span *ngIf="loading" class="spinner-border spinner-border-sm">
+            </span>
+            Update
+          </button>
+        </div>
+      </form>
     </div> 
 </div>
 

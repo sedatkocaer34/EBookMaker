@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models/Book');
+const auth =require('../security/jwtAuth');
 const mongoose =require('mongoose');
 const { json } = require('express');
 
@@ -15,7 +16,7 @@ router.post('/addnewbook',(req,res,next)=>{
     });
 });
 
-router.get('/getbook/:bookId',(req,res,next)=>{
+router.get('/getbook/:bookId',auth.required,(req,res,next)=>{
     const bookId= req.params.bookId;
     const promise = Book.findById(mongoose.Types.ObjectId(bookId));
     promise.then((book)=>{
@@ -25,7 +26,7 @@ router.get('/getbook/:bookId',(req,res,next)=>{
     });
 });
 
-router.put('/updatebook/:bookId',(req,res,next)=>{
+router.put('/updatebook/:bookId',auth.required,(req,res,next)=>{
     const bookId = req.params.bookId;
     const bookData = JSON.parse(JSON.stringify(req.body));
 
@@ -41,7 +42,7 @@ router.put('/updatebook/:bookId',(req,res,next)=>{
     });
 });
 
-router.get('/getbooklist/:userId',(req,res,next)=>{
+router.get('/getbooklist/:userId',auth.required,(req,res,next)=>{
     const userId= req.params.userId;
     const promise = Book.aggregate([
 		{
