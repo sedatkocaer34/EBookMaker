@@ -5,7 +5,7 @@ function getTokenFromHeader(req){
   
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token' ||
       req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-        console.log( req.headers.authorization.split(' ')[1]);
+        console.log(req.headers.authorization.split(' ')[1]);
     return req.headers.authorization.split(' ')[1];
   }
 
@@ -15,14 +15,14 @@ function getTokenFromHeader(req){
 var auth = {
   required: jwt({
     secret: secret,
-    algorithms: ['RS256'],
-    userProperty: 'payload',
+    userProperty:'payload',
+    algorithms: ['HS256'],
     getToken: getTokenFromHeader
   }),
   optional: jwt({
     secret: secret,
-    algorithms: ['RS256'],
-    userProperty: 'payload',
+    userProperty:'payload',
+    algorithms: ['HS256'],
     credentialsRequired: false,
     getToken: getTokenFromHeader
   })

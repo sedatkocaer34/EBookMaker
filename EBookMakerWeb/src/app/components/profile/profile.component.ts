@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 export class ProfileComponent implements OnInit {
 
   user:User;
+  loading:boolean;
   formUpdateProfile:FormGroup;
   constructor(private fb:FormBuilder,private userService:UserService) { }
 
@@ -28,7 +29,12 @@ export class ProfileComponent implements OnInit {
 
   updateProfile()
   {
-
+    this.loading=true;
+    if(this.formUpdateProfile.invalid)
+    {
+      return;
+    }
+    const val = this.formUpdateProfile.value;
   }
 
   createUpdateProfileForm()

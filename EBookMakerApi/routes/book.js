@@ -16,7 +16,7 @@ router.post('/addnewbook',(req,res,next)=>{
     });
 });
 
-router.get('/getbook/:bookId',auth.required,(req,res,next)=>{
+router.get('/getbook/:bookId',auth.required,(req,res)=>{
     const bookId= req.params.bookId;
     const promise = Book.findById(mongoose.Types.ObjectId(bookId));
     promise.then((book)=>{

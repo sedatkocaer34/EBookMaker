@@ -14,8 +14,9 @@ export class JwtInterceptor implements HttpInterceptor {
         const currentUser = this.userService.currentUserValue;
         const isLoggedIn = currentUser && currentUser.token;
         const isApiUrl = request.url.startsWith(environment.apiUrl);
-        console.log(currentUser.token);
+        
         if (isLoggedIn && isApiUrl) {
+            console.log("girdim");
             request = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${currentUser.token}`

@@ -7,13 +7,14 @@ import { BookComponent } from '../app/components/book/book.component';
 import { ProfileComponent } from '../app/components/profile/profile.component';
 import { UpdatebookComponent } from './components/updatebook/updatebook.component';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
+import { AuthGuard } from './helpers/auth';
 const routes: Routes = [
   { path: 'auth', component: AuthComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'book', component: BookComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'updatebook/:bookId', component: UpdatebookComponent },
-  { path: 'bookdetail/:bookId', component: BookDetailComponent },
+  { path: 'home', component: HomeComponent,canActivate:[AuthGuard] },
+  { path: 'book', component: BookComponent,canActivate:[AuthGuard] },
+  { path: 'profile', component: ProfileComponent,canActivate:[AuthGuard] },
+  { path: 'updatebook/:bookId', component: UpdatebookComponent,canActivate:[AuthGuard] },
+  { path: 'bookdetail/:bookId', component: BookDetailComponent ,canActivate:[AuthGuard]},
   { path: '', component: HomeComponent },
 ];
 
