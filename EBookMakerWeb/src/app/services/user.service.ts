@@ -52,6 +52,13 @@ export class UserService {
     }));
   }
 
+  updatepassword( oldpass:string, newpass:string,userId:string):Observable<any>{
+    let API_URl=this.apiUrl+"/users/updatepassword/"+userId;
+    return this.httpClient.put<any>(API_URl,{oldpass,newpass}).pipe(map(data =>{
+        return data;
+    }));
+  }
+
   logout() {
     localStorage.removeItem('currentUserVal');
     this.currentUserSubject.next(null);

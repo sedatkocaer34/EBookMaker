@@ -77,4 +77,42 @@ router.put('/updateUser/:userId',auth.required,(req,res,next) =>{
    });
 });
 
+router.put('/updatepassword/:userId',auth.required,(req,res,next) =>{
+  const userId= req.params.userId;
+  const {oldpass,newpass} = JSON.parse(JSON.stringify(req.body));
+
+  const promise = User.findById(mongoose.Types.ObjectId(userId));
+   promise.then((user)=>{
+     if(user)
+     {
+        decrypt({iv:user.password,content:user.passcontent}).then((hash )=>{
+          if(hash.toString()===oldpass)
+          {
+            encrypt(newpass).then((hash )=>{
+              user.password=hash.iv;
+              user.passcontent=hash.content;
+              const promiseUpdated = User.findByIdAndUpdate(userId ,user,{new :true})
+              promiseUpdated.then((updatedUser)=>{
+                  if(updatedUser)
+                      return res.json({status:true,message:"Password changed."})
+                  else
+                      return res.json({status:false,message:"Something went wrong."});
+              }).catch((err)=>{
+                res.json({user:null,error:err.message});
+              });
+            });
+          }
+          else
+              return res.json({status:false,message:"Password not true."});
+        })
+     }
+     else
+        res.json({status:false,message:"User not found."});  
+   })
+   .catch((err)=>{
+     res.json({status:false,error:err.message});
+   });
+
+});
+
 module.exports = router;
