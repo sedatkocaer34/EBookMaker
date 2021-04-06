@@ -34,8 +34,17 @@ export class ProfileComponent implements OnInit {
     {
       return;
     }
+
     const val = this.formUpdateProfile.value;
+    this.userService.updateProfile(new User({username:val.username,email:val.email})).subscribe(data =>{
+        if(data.status)
+        {
+
+        }
+    });
   }
+
+  get updatePorfileFormValidaiton() { return this.formUpdateProfile.controls; }
 
   createUpdateProfileForm()
   {

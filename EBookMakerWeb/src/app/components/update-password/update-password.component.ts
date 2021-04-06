@@ -13,6 +13,7 @@ export class UpdatePasswordComponent implements OnInit {
   formChangePass:FormGroup;
   submited:boolean = false;
   loading:boolean = false;
+  errormessage:string;
 
   constructor(private formbuilder:FormBuilder,private userService:UserService,private router:Router) { }
 
@@ -20,6 +21,9 @@ export class UpdatePasswordComponent implements OnInit {
   {
     this.createNewPasswordForm();
   }
+
+  get refreshPasswordFormValidaiton() { return this.formChangePass.controls; }
+
   updatePassword()
   {
     this.submited=true;
@@ -33,7 +37,7 @@ export class UpdatePasswordComponent implements OnInit {
     const val = this.formChangePass.value;
     if(val.newpassconf!=val.newpass)
     {
-      //TODO ERROR MESSAGE 
+      this.errormessage = "Password not matched";
       this.loading=false;
       return;
     }
