@@ -63,17 +63,26 @@ router.get('/getUser/:userId',auth.required,(req,res,next) =>{
 router.put('/updateUser/:userId',auth.required,(req,res,next) =>{
   const userId= req.params.userId;
   const userUpdate = JSON.parse(JSON.stringify(req.body));
-  console.log(userUpdate);
 
-  const promise = User.findByIdAndUpdate(userId ,userUpdate,{new :true})
-   promise.then((user)=>{
+  const promiseUser = User.findById(userId);
+  promiseUser.then((user)=>{
      if(!user)
      {
        res.json({message:"User not found"});
      }
-     res.json(user);  
+     user.username=userUpdate.username;
+     user.email=userUpdate.email;
+     console.log(user);
+     const updatedUser = User.findOneAndUpdate({_id:userId},user,{upsert: true});
+     updatedUser.then((userdata)=>{
+       if(userdata)
+           res.json({status:true,message:"Profile Updated"});  
+       else
+           res.json({status:false,message:"something went wrong"})
+     });
+     
    }).catch((err)=>{
-     res.json({user:null,error:err.message});
+     res.json({status:false,error:err.message});
    });
 });
 

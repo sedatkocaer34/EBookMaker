@@ -9,6 +9,9 @@ import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
 
+  submited:boolean = false;
+  errormessages:string;
+  successmessages:string;
   user:User;
   loading:boolean;
   formUpdateProfile:FormGroup;
@@ -24,22 +27,31 @@ export class ProfileComponent implements OnInit {
   {
      this.userService.getUser(JSON.parse(localStorage.getItem('currentUserVal')).id).subscribe(data =>{
           this.user=data;
+          
      })
   }
 
   updateProfile()
   {
     this.loading=true;
+    this.submited=true;
     if(this.formUpdateProfile.invalid)
     {
+      this.loading=false;
       return;
     }
 
     const val = this.formUpdateProfile.value;
-    this.userService.updateProfile(new User({username:val.username,email:val.email})).subscribe(data =>{
+    this.userService.updateProfile(new User({username:val.username,email:val.email,id:JSON.parse(localStorage.getItem('currentUserVal')).id})).subscribe(data =>{
+
+        this.loading=false;
         if(data.status)
         {
-
+          this.successmessages="Profile Updated";
+        }
+        else
+        {
+          this.errormessages = data.message;
         }
     });
   }

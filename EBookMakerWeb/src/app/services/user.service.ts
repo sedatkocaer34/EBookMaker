@@ -53,7 +53,7 @@ export class UserService {
   }
 
   updateProfile(user:User):Observable<any>{
-    let API_URl=this.apiUrl+"/users/updatepassword/"+user.id;
+    let API_URl=this.apiUrl+"/users/updateUser/"+user.id;
     return this.httpClient.put<any>(API_URl,user).pipe(map(data =>{
         return data;
     }));
