@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'updatebook/:bookId', component: UpdatebookComponent,canActivate:[AuthGuard] },
   { path: 'bookdetail/:bookId', component: BookDetailComponent ,canActivate:[AuthGuard]},
   {path:'updatepassword',component:UpdatePasswordComponent,canActivate:[AuthGuard]},
-  { path: '', component: HomeComponent },
+  { path: '', component: AppComponent },
 ];
 
 @NgModule({

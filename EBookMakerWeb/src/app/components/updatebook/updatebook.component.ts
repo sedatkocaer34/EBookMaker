@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/services/book.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-updatebook',
@@ -16,7 +16,7 @@ export class UpdatebookComponent implements OnInit {
   formBook;
   bookIdFromRoute:string;
   loading:boolean=false;
-  constructor(private formbuilder:FormBuilder,private bookService:BookService, private route: ActivatedRoute) { }
+  constructor(private formbuilder:FormBuilder,private bookService:BookService, private route: ActivatedRoute,private routers: Router) { }
    
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -60,6 +60,7 @@ export class UpdatebookComponent implements OnInit {
     this.bookService.updateBook( this.bookIdFromRoute,book).subscribe(data =>{
         if (data.status) {
           this.loading=false;
+          this.routers.navigate(["/"]);
         }
         else
         {

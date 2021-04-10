@@ -5,7 +5,7 @@ const auth =require('../security/jwtAuth');
 const mongoose =require('mongoose');
 const { json } = require('express');
 
-router.post('/addnewbook',(req,res,next)=>{
+router.post('/addnewbook',auth.required,(req,res,next)=>{
     const book = new Book(req.body);
     const promise = book.save();
 

@@ -29,10 +29,8 @@ router.post('/signin',(req,res,next)=>{
     if(user)
     {
       decrypt({iv:user.password,content:user.passcontent}).then((hash )=>{
-        console.log(hash.toString()+password); 
          if(hash.toString()===password)
          {
-           
             const token = user.generateJWT();
             return res.status(200).json({status:true, id:user._id,username:user.username,email:user.email,token:token});
          }
@@ -49,7 +47,6 @@ router.post('/signin',(req,res,next)=>{
 
 router.get('/getUser/:userId',auth.required,(req,res,next) =>{
   const userId= req.params.userId;
-  console.log(userId);
   const promise = User.findById(mongoose.Types.ObjectId(userId));
 
   promise.then((user)=>{
@@ -72,7 +69,6 @@ router.put('/updateUser/:userId',auth.required,(req,res,next) =>{
      }
      user.username=userUpdate.username;
      user.email=userUpdate.email;
-     console.log(user);
      const updatedUser = User.findOneAndUpdate({_id:userId},user,{upsert: true});
      updatedUser.then((userdata)=>{
        if(userdata)
