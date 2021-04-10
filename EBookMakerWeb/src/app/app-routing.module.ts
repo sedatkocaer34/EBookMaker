@@ -11,13 +11,13 @@ import { AuthGuard } from './helpers/auth';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 const routes: Routes = [
   { path: 'auth', component: AuthComponent },
-  { path: 'home', component: HomeComponent,canActivate:[AuthGuard] },
+  { path: 'home', component: HomeComponent },
   { path: 'book', component: BookComponent,canActivate:[AuthGuard] },
   { path: 'profile', component: ProfileComponent,canActivate:[AuthGuard] },
   { path: 'updatebook/:bookId', component: UpdatebookComponent,canActivate:[AuthGuard] },
   { path: 'bookdetail/:bookId', component: BookDetailComponent ,canActivate:[AuthGuard]},
   {path:'updatepassword',component:UpdatePasswordComponent,canActivate:[AuthGuard]},
-  { path: '', component: AppComponent },
+  { path: '', component: HomeComponent },
 ];
 
 @NgModule({

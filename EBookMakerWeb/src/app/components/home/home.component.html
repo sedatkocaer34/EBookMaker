@@ -1,6 +1,6 @@
 <div  class="container mt-5">
     <div style="margin-top: 100px;" class="row">
-        <div class="col-md-12">
+        <div *ngIf="currentUser;else default_content" class="col-md-12">
             <div class="d-flex justify-content-between align-items-center activity">
                 <div><span class="activity-done">Your Books (4)</span></div>
             </div>
@@ -23,5 +23,20 @@
                 </ul>
             </div>
         </div>
+        <ng-template #default_content>
+            <div class="site-wrapper">
+                <div class="site-wrapper-inner">
+                  <div class="cover-container">
+                    <div class="inner cover">
+                      <h1 class="cover-heading">Create Your New EBook</h1>
+                      <p class="lead">Create, publish and edit your new ebook with advanced editors</p>
+                      <p class="lead">
+                        <a [routerLink]="['/book']" class="btn btn-lg btn-secondary">Create EBook</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+        </ng-template>
     </div>
 </div>
