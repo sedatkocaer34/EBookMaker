@@ -34,6 +34,7 @@ export class AuthComponent implements OnInit {
   get loginFormValidaiton() { return this.formLogin.controls; }
 
   login() {
+    this.clearLoginForm();
     this.submitlogin=true;
     if (this.formLogin.invalid) {
       return;
@@ -59,6 +60,8 @@ export class AuthComponent implements OnInit {
   get registerFormValidaiton() { return this.formRegister.controls; }
 
   register() {
+
+    this.clearRegisterForm();
     this.submitregister=true;
     if (this.formRegister.invalid) {
       return;
@@ -71,7 +74,7 @@ export class AuthComponent implements OnInit {
         this.userService.createUser(this.user).pipe(first()).subscribe(data => {
           if(data.status)
           {
-            this.success="Success";
+            this.success="Registration Successful. Please Login.";
             this.changeTab();
           }
           else
@@ -88,6 +91,21 @@ export class AuthComponent implements OnInit {
         this.error ="Password and password confirm not match";
       }
     }
+    
+  }
+
+  clearRegisterForm()
+  {
+    this.submitregister=false;
+    this.error=null;
+    this.success=null;
+  }
+
+  clearLoginForm()
+  {
+    this.submitlogin=false;
+    this.error=null;
+    this.success=null;
   }
 
   changeTab()

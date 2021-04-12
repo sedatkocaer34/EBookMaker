@@ -46,7 +46,7 @@
                                     <div *ngIf="registerFormValidaiton.email.errors.required">Email is required</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="LGform1_user" formControlName="username" class="form-control" placeholder="Username" value="" required=""/>
+                                    <input type="text" name="LGform1_user" formControlName="username" class="form-control" placeholder="Username" value="" required=""/>
                                 </div>
                                 <div *ngIf="submitregister && registerFormValidaiton.username.errors" class="alert alert-danger mt-3 mb-0">
                                     <div *ngIf="registerFormValidaiton.username.errors.required">Username is required</div>
@@ -64,7 +64,7 @@
                                     <div *ngIf="registerFormValidaiton.passwordconfirm.errors.required">Password confirm is required</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" name="LGform2" class="btnContactSubmit" value="Login" />
+                                    <input type="submit" name="LGform2" class="btnContactSubmit" value="Register" />
                                 </div>
                             </form>
                         </div>

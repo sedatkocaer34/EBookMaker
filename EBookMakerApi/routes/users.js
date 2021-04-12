@@ -16,7 +16,8 @@ router.post('/addnewuser', async (req,res,next) =>{
     promise.then((data)=>{
       res.json({status:true,id:data._id,username:data.username,email:data.email});
     }).catch((err)=>{
-      res.json({data:null,error:err.message});
+      console.log(err.message);
+      res.json({status:false,message:err.message});
     });
   });
 });

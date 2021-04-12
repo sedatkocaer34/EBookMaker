@@ -13,19 +13,14 @@ import { User } from 'src/app/models/user';
 export class HomeComponent implements OnInit {
 
   bookList:Book[];
-  currentUser:User;
+  currentUserCheck:User;
   constructor(private formBuilder: FormBuilder,private bookService:BookService,private userService:UserService) { }
 
   ngOnInit(): void {
     
-    if(!this.userService.currentUserValue)
+    if(this.userService.currentUserValue)
     {
-      console.log(this.userService.currentUserValue);
-      this.currentUser=this.userService.currentUserValue;
-    }
-    else
-    {
-      console.log("girdim");
+      this.currentUserCheck=this.userService.currentUserValue;
       this.bookList=[];
       this.getUserBookList(JSON.parse(localStorage.getItem('currentUserVal')).id);
     }

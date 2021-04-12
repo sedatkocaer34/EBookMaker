@@ -38,7 +38,7 @@ userSchema.post('save', (error, doc, next) => {
         }
         else if(error.keyPattern['email']==1)
         {
-            next(new Error("Emial is already exists."));
+            next(new Error("Email is already exists."));
         }
     } else {
       next();
